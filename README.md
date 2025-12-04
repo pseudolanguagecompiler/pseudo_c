@@ -2,7 +2,11 @@
 
 **Status: Compiles & runs** (`lake build && lake exe pseudoC test.pseudo`)
 
-**Approach**: Lean shines at verification/proofs, not parsing. Focus on **one clean grammar** with solid semantics first, **modular design** for multiple IRs/grammars later.
+**Design philosophy**: Our philosophy is to decouple surface parsing from semantics enabling parsing pseoducode into consitutent trees independent of grammar specifcs. We do this by providing a universal IR interface.
+
+Lean works well verification/proofs, not parsing. Focus on **one clean grammar** with solid semantics first, **modular design** for multiple IRs/grammars later. This multi-grammar abstraction supports shared hierarchical intermediate languages that abstract surface variations across languages, enabling a single parser (defined in AST folder) to handle diverse syntactic rules via parameter settings or transformations.
+
+Universal grammars allow head direction while maintaining core hierarchies, mirroring traditional AST-based IR noralization of inputs from multiple grammars into one tree structure for pseudocode parsing. 
 
 **Pipeline**: Pseudocode → `UniversalParser` → `UniversalIR` (AST+Semantics) → `ToLean` codegen
 
