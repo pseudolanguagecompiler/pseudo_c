@@ -8,7 +8,7 @@ def main (args : List String) : IO UInt32 := do
     return 1
   
   let input ← IO.FS.readFile args.head!
-  IO.println s!"Parsing: {args.head!}"
+  IO.println s!"Input: {input}"
   
   match UniversalParser.parseProgram input with
   | .error msg => 
@@ -16,19 +16,13 @@ def main (args : List String) : IO UInt32 := do
     return 1
   | .ok ast =>
     IO.println "✓ Parse successful"
-    IO.println s!"AST: {ast}" -- Debug AST
+    IO.println s!"AST: {ast}"
     
-    -- Execute semantics
-    let result ← UniversalIR.evalProgram ast (λ_ => none)
-    IO.println s!"Execution result: {result}"
+    -- Denotational execution with notation
+    let init : UniversalIR.State := λ_ => none
+    IO.println s!"⟦program⟧ init = {UniversalIR.execProgram ast init}"
     
-    -- Generate Lean code
     let leanCode ← Codegen.ToLean.fromUniversal ast
-    IO.println "\n=== Generated Lean 4 code ==="
+    IO.println "\n=== Generated Lean 4 ==="
     IO.println leanCode
-    
-    -- Test with your example input
-    IO.println "\n=== Test Input Expected Output ==="
-    IO.println "5 4 3 2 1 (from while loop)"
-    
     return 0
