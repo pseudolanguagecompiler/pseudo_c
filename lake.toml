@@ -1,2 +1,7 @@
 [default]
 lean_options = { }
+
+[[require]]
+name = "Parser"
+git = "https://github.com/fgdorais/lean4-parser"
+rev = "main"
