@@ -1,11 +1,12 @@
 namespace Ast
 
-class IR where
+-- Academic IR interface
+class IR (ι : Type) where
   Expr : Type
   Stmt : Type
-  stateType : Type
-  evalExpr : Expr → stateType → Nat
-  evalStmt : Stmt → stateType → stateType
-  evalProgram : List Stmt → stateType → IO Nat
+  State : Type
+  denoteExpr : Expr → State → Nat
+  denoteStmt : Stmt → (State → State)
+  seq : (State → State) → (State → State) → (State → State)
 
 end Ast
