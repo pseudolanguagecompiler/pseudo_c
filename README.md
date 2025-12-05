@@ -5,6 +5,8 @@
 **Self-hosting**: `pseudo_c_boostrap.pseudo` → Lean4 compiler **(parser/codegen verified)**.
 
 Join us on Libera Chat! ##pseudocompiler
+
+##### *We're trying to formalize the missing link between human pseudocode and verified execution by building the first compiler where Lean proves every parsed program has mathematically identical semantics regardless of syntax, solving education, AI reliability, and multi-paradigm research problems in one framework.*
 ---
 
 ## Quick Start
