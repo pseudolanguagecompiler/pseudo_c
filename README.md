@@ -1,5 +1,5 @@
-
-# λIR: Lambda IR, the Verified Compilation of Human Pseudocode into Intermediate Language
+# λIR (LambdaIR): Lambda Intermediate Representation
+*Verified Compilation Framework for Human Pseudocode*
 
 **Status**: ✅ Core pipeline compiles & runs. .
 
