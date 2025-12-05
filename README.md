@@ -24,7 +24,7 @@ The inspiration for this project is to answer a couple questions
 1. Is it possible to use pseudo code to teach algorithms and CS to students and have a tool that will generate executable multi-paradigm code?
 2. Is it theoretically possible to boostrap a pseudocode compiler IN psueodcode?
 3. Once the pseudocode compiler is built, is it possible to use it to answer reesearch questions around language-agnostic tools?
-4. Is it possible to completely remove hallucinations from AI-generated code by treating it as pseudocode?
+4. **[Research Goal]** Can pseudocode + formal semantics reduce AI code hallucinations?
 5. Does pseudocode allow for recursive-self improvement and could PseudoC help to develop a formal RSI framework?
 
 ## 🎓 Autoformalization Bootstrap** (Boostrap.lean)
