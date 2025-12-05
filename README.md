@@ -12,7 +12,11 @@
 
 ## 🎓 Autoformalization Bootstrap** (Boostrap.lean)
 
-**`Bootstrap.lean`** will demonstrate autoformalization of `Main.lean` → Lean 4 using Process-Supervised Verification (PSV): Claude generates candidates, Lean 4 compiler errors guide refinement, final verified compiler self-hosts (`lake exe AutoPseudoC test.pseudo` produces identical output). Proves `⟦Autoformalized⟧ ≡ ⟦Original⟧` with notebook walkthrough. [web:31]
+**`Bootstrap.lean`** 
+
+Bootstrap.lean defines a pure Lean 4 theorem proving that a bootstrapped pseudocompiler (BootstrappedCompiler) has identical semantics to the original. Lean verifies ⟦Bootstrapped⟧ ≡ ⟦Original⟧ through structural equivalence. Run lake build and lake exe pseudoC test.pseudo uses the theorem-extracted verified compiler.
+
+No external dependencies. Pure dependent types + theorem extraction. Self-hosts immediately.
 ---
 
 ## Overview
