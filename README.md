@@ -276,7 +276,7 @@ Expected: Prints countdown 5 → 1 and outputs generated Lean 4 code equivalent 
 
 ## 🧑‍💻 Contributors
 
-We're actively looking for contributors to join our core development team to get this idea off the ground. 
+We're actively looking for contributors and/or core developers to get this idea off the ground (hoping to give each core developer an email address once website is built)
 
 - Core developer — *LydiaQ*  
 - Proofs & semantics — *coming soon, done in jupyter notebook to start* 
