@@ -5,7 +5,7 @@
 
 **λIR**: (LambdaIR) — *pronounced "LAMB-dair"* 
 
-Join us on Libera Chat! ##pseudocompiler (our channel for now)
+Join us on Libera Chat! ##pseudocompiler 
 
 ##### *We're trying to formalize the missing link between human pseudocode and verified execution by building the first compiler where Lean proves every parsed program has mathematically identical semantics regardless of syntax, solving education, AI reliability, and multi-paradigm research problems in one framework.*
 
