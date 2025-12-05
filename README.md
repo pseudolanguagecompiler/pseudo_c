@@ -10,7 +10,7 @@
 Install Lean4 to compile, run the test file (test.pseudo) which contains some sample pseudo-code you should see this output if everything works (feel free to submit a PR if it does not)
 
 Input: set x := 5; while x > 0 do ...
-✓ PseudoC parsed successfully
+PseudoC parsed successfully
 AST: [While (> x 0) [Print x, Set x (x - 1)]]
 
 # PseudoC - Practical Pseudocode Compiler 
@@ -39,6 +39,34 @@ No external dependencies. Pure dependent types + theorem extraction. Self-hosts 
    test.pseudo
 
 ---
+
+## Full Boostrap sequence
+
+## 1. Original compiler works
+lake exe pseudoc test.pseudo          # Prints 5→1 
+
+## 2. Compile bootstrap target
+lake exe pseudoc pseudo_c_boostrap.pseudo  
+## Parsed, executes lexer/parser, outputs UniversalIR
+
+## 3. Generate self-compiler
+let bootstrapCode ← Codegen.ToLean.fromPseudoC bootstrapAST
+## Outputs: Lean4 source of ENTIRE PseudoC compiler!
+
+## 4. Theorem proves equivalence
+## BootstrappedCompiler.sound : ∀ ps, new_compiler ps ≡ old_compiler ps 
+
+Verification Theorems (Autoformalized)
+```
+-- From Bootstrap.lean + this .pseudo file:
+theorem pseudo_c_self_hosts :
+  BootstrappedCompiler.compile "pseudo_c_boostrap.pseudo" 
+  = ⟨pseudo_c_compiler, pseudo_c_soundness⟩  -- Self-verified!
+
+theorem full_cycle :
+  Semantics.run (BootstrappedCompiler.compile "test.pseudo") 
+  = Semantics.evalPseudo "test.pseudo"  -- Roundtrip verified!
+```
 
 ## Overview
 
