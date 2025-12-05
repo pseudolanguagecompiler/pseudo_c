@@ -13,47 +13,52 @@ inductive Expr where
 deriving Repr, BEq
 
 inductive Stmt where
-  | assign (var : String) (expr : Expr)
-  | if_ (cond : Expr) (then_ else_ : List Stmt)
-  | while (cond : Expr) (body : List Stmt)
+  | set (var : String) (expr : Expr)
   | print (expr : Expr)
+  | while (cond : Expr) (body : List Stmt)
 deriving Repr, BEq
 
 abbrev State := String → Option Nat
 
--- REAL DENOTATIONAL SEMANTICS ⟦e⟧, ⟦S⟧
-notation:50 s " ⟦ " e:51 " ⟧" => denoteExpr e s
-notation:50 "⟦ " S:51 " ⟧" => denoteStmt S
+-- Notation: ⟦expr⟧ s = evaluation in state s
+notation:50 "⟦" e:51 "⟧" s:52 => denoteExpr e s
+notation:50 "⟦" S:51 "⟧" => denoteStmt S
 
+-- Expression evaluation: always returns Nat (bool as 0/1)
 def denoteExpr : Expr → State → Nat
   | .var x, s => s x |>.getD 0
   | .num n, _ => n
-  | .binOp .add l r, s => ⟦l⟧ s + ⟦r⟧ s
-  | .binOp .sub l r, s => ⟦l⟧ s - ⟦r⟧ s
-  | .binOp .gt l r, s => if ⟦l⟧ s > ⟦r⟧ s then 1 else 0
+  | .binOp .add l r, s => denoteExpr l s + denoteExpr r s
+  | .binOp .sub l r, s => denoteExpr l s - denoteExpr r s
+  | .binOp .gt l r, s => if denoteExpr l s > denoteExpr r s then 1 else 0
 
+-- Statement denotation: State → State (pure math functions)
 def denoteStmt : Stmt → (State → State)
-  | .assign x e, s => fun y => if y == x then some (⟦e⟧ s) else s y
-  | .print e, s   => s  -- Pure denotation (side effects abstracted)
-  | .if_ cond t e, s => 
-      if ⟦cond⟧ s ≠ 0 then t.foldl (init := s) (· ∘ ⟦·⟧) else e.foldl (init := s) (· ∘ ⟦·⟧)
+  | .set x e, s => fun y => if y == x then some (denoteExpr e s) else s y
+  | .print e, s => 
+    unsafe do
+      IO.println s!"{denoteExpr e s}"
+      pure s
   | .while cond body, s => 
-      if ⟦cond⟧ s ≠ 0 then ⟦.while cond body⟧ (body.foldl (init := s) (· ∘ ⟦·⟧)) else s
+    let bodyComp := body.foldl (init := id) fun acc stmt => acc ∘ denoteStmt stmt
+    fixpoint (fun w σ => if denoteExpr cond σ ≠ 0 then w (bodyComp σ) else σ) s
 
--- Sequential composition (KEY ACADEMIC PROPERTY)
+-- Fixed-point combinator for while loops
+def fixpoint {α : Type} (f : (α → α) → α → α) (a : α) : α := 
+  let rec iter (fuel : Nat) : α → α := fun x => 
+    if fuel = 0 then x else iter (fuel - 1) (f (iter (fuel - 1)) x)
+  iter 1000 a
+
+-- Sequential composition
 def seq (s1 s2 : State → State) : State → State := s1 ∘ s2
 
--- EXECUTABLE VERSION (for Main.lean)
-def execProgram (stmts : List Stmt) (init : State) : IO Unit := do
-  let final := stmts.foldl (init := init) (· ∘ ⟦·⟧)
-  IO.println s!"Final state: {final}"
+-- Execute program: List Stmt → State → State (pure)
+def execProgram (stmts : List Stmt) (init : State) : State :=
+  stmts.foldl (init := id) (· ∘ denoteStmt) init | init
 
-instance : Ast.IR UniversalIR where
-  Expr := Expr
-  Stmt := Stmt
-  State := State
-  denoteExpr := denoteExpr
-  denoteStmt := denoteStmt
-  seq := seq
+-- IO version for Main.lean
+def execProgramIO (stmts : List Stmt) (init : State) : IO Unit := do
+  let final := execProgram stmts init
+  IO.println s!"Program executed. Final state function: {final}"
 
 end UniversalIR
