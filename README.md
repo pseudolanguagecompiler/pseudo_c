@@ -27,11 +27,13 @@ The inspiration for this project is to answer a couple questions
 4. **[Research Goal]** Can pseudocode + formal semantics reduce AI code hallucinations?
 5. Does pseudocode allow for recursive-self improvement and could PseudoC help to develop a formal RSI framework?
 
-## 🎓 Autoformalization Bootstrap** (Boostrap.lean)
+## 🎓 Bootstrap** (Boostrap.lean)
 
 **`Bootstrap.lean`** 
 
-Bootstrap.lean defines a pure Lean 4 theorem proving that a bootstrapped pseudocompiler (BootstrappedCompiler) has identical semantics to the original. Lean verifies ⟦Bootstrapped⟧ ≡ ⟦Original⟧ through structural equivalence. Run lake build and lake exe pseudoc test.pseudo uses the theorem-extracted verified compiler.
+Bootstrap via **theorem extraction** (manual formalization → verified compiler). How does it work? Lea4 excels at verification. Bootstrap.lean defines a pure Lean 4 theorem proving that a bootstrapped pseudocompiler (BootstrappedCompiler) has identical semantics to the original. Lean verifies ⟦Bootstrapped⟧ ≡ ⟦Original⟧ through structural equivalence. Run lake build and lake exe pseudoc test.pseudo uses the theorem-extracted verified compiler. In the future, for more advanced semantics we might use autoformalization techniques here.
+
+
 
 ---
 
