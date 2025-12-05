@@ -2,7 +2,7 @@
 # Pseudocode Compiler in Lean 4 
 
 **Status**: ✅ Compiles & runs  
-**Command**: `lake build && lake exe pseudo_c test.pseudo`
+**Command**: `lake build && lake exe pseudoc test.pseudo`
 ---
 
 ## Quick Start
@@ -24,9 +24,14 @@ AST: [While (> x 0) [Print x, Set x (x - 1)]]
 
 **`Bootstrap.lean`** 
 
-Bootstrap.lean defines a pure Lean 4 theorem proving that a bootstrapped pseudocompiler (BootstrappedCompiler) has identical semantics to the original. Lean verifies ⟦Bootstrapped⟧ ≡ ⟦Original⟧ through structural equivalence. Run lake build and lake exe pseudoC test.pseudo uses the theorem-extracted verified compiler.
+Bootstrap.lean defines a pure Lean 4 theorem proving that a bootstrapped pseudocompiler (BootstrappedCompiler) has identical semantics to the original. Lean verifies ⟦Bootstrapped⟧ ≡ ⟦Original⟧ through structural equivalence. Run lake build and lake exe pseudoc test.pseudo uses the theorem-extracted verified compiler.
 
 No external dependencies. Pure dependent types + theorem extraction. Self-hosts immediately.
+
+1. lake build          # Rebuilds with Bootstrap.lean theorems
+2. lake exe pseudoc    # Now dispatches to verified BootstrappedCompiler
+   test.pseudo
+
 ---
 
 ## Overview
