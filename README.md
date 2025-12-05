@@ -25,8 +25,6 @@ Join us on Libera Chat! ##pseudocompiler
 | **Multi-language** | Rewrite per target | **One pseudocode → Lean/C/JS/Future paradigm** | **Paradigm freedom**|
 | **Verification** | Unit tests miss bugs | **Lean proves `⟦pseudocode⟧ ≡ execution`** | **Math-level correctness** |
 
-## **30-Second Demo**
-
 
 ## Quick Start
 
