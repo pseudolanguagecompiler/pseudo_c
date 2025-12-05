@@ -24,7 +24,7 @@ The inspiration for this project is to answer a couple questions
 2. Is it theoretically possible to boostrap a pseudocode compiler IN psueodcode?
 3. Once the pseudocode compiler is built, is it possible to use it to answer reesearch questions around language-agnostic tools?
 4. Is it possible to completely remove hallucinations from AI-generated code by treating it as pseudocode?
-5. Does pseudocode support self-recursive improvement?
+5. Does pseudocode allow for recursive-self improvement and could PseudoC help to develop a formal RSI framework?
 
 ## 🎓 Autoformalization Bootstrap** (Boostrap.lean)
 
