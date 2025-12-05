@@ -1,5 +1,5 @@
 
-# Practical Pseudocode Compiler in Lean 4
+# Pseudocode Compiler in Lean 4 
 
 **Status**: ✅ Compiles & runs  
 **Command**: `lake build && lake exe pseudo_c test.pseudo`
