@@ -56,42 +56,9 @@ The inspiration for this project is to answer a couple questions
 
 Bootstrap via **theorem extraction** (manual formalization → verified compiler). How does it work? Lea4 excels at verification. Bootstrap.lean defines a pure Lean 4 theorem proving that a bootstrapped pseudocompiler (BootstrappedCompiler) has identical semantics to the original. Lean verifies ⟦Bootstrapped⟧ ≡ ⟦Original⟧ through structural equivalence. Run lake build and lake exe pseudoc test.pseudo uses the theorem-extracted verified compiler. In the future, for more advanced semantics we might use autoformalization techniques here.
 
-
-
 ---
 
-## Full Boostrap sequence
-
-## 1. Original compiler works
-lake exe pseudoc test.pseudo          # Prints 5→1 
-
-## 2. Compile bootstrap target
-lake exe pseudoc pseudo_c_boostrap.pseudo  
-## Parsed, executes lexer/parser, outputs UniversalIR
-
-## 3. Generate self-compiler
-let bootstrapCode ← Codegen.ToLean.fromPseudoC bootstrapAST
-## Outputs: Lean4 source of ENTIRE PseudoC compiler!
-
-## 4. Theorem proves equivalence
-## BootstrappedCompiler.sound : ∀ ps, new_compiler ps ≡ old_compiler ps 
-
-Verification Theorems (Autoformalized)
-```
--- From Bootstrap.lean + this .pseudo file:
-theorem pseudo_c_self_hosts :
-  BootstrappedCompiler.compile "pseudo_c_boostrap.pseudo" 
-  = ⟨pseudo_c_compiler, pseudo_c_soundness⟩  -- Self-verified!
-
-theorem full_cycle :
-  Semantics.run (BootstrappedCompiler.compile "test.pseudo") 
-  = Semantics.evalPseudo "test.pseudo"  -- Roundtrip verified!
-```
-
 ## Overview
-
-
-## 🌐 Overview
 
 This project implements a **semantics-verified pseudocode compiler** written in **Lean 4**, designed to decouple *surface parsing* from *semantic interpretation*. Its long-term goal is to provide a **Universal Intermediate Representation (UniversalIR)** capable of capturing the structure and meaning of pseudocode written in multiple grammar styles.
 
@@ -241,31 +208,6 @@ UniversalIR solves this by providing a *shared semantic domain* for all grammars
 
 ---
 
-## ⏱ Development Roadmap
-
-| Week | Milestone |
-|------|------------|
-| 1 | Parser + UniversalIR + Main |
-| 2 | Full `if`/`while` parsing |
-| 3 | Type checker + VerifiedIR |
-| 4 | Error recovery + symbol tables |
-| 5 | C/JS backend codegen |
-| 6 | Formal proofs + test suite |
-| 7 | Boostrap pseudo code compiler using autoformalization via theorem notebook|
----
-
-## 🧩 Example Theorems (in progress)
-
-theorem assign_correct :
-⟦assign x e⟧ s x = some (⟦e⟧ s)
-
-theorem seq_compositional :
-⟦S1; S2⟧ = ⟦S1⟧ ∘ ⟦S2⟧
-
-These form the basis for semantic soundness and program equivalence proofs.
-
----
-
 ## 🔧 Build & Run
 
 lake build
@@ -279,18 +221,8 @@ Expected: Prints countdown 5 → 1 and outputs generated Lean 4 code equivalent 
 ## 🧩 Future Work
 
 - **Verified bytecode VM** with denotational equivalence proof  
-- Multi-language frontends (C-style, Pythonic pseudocode)  
-- Functional transformations verified by Lean tactics (`simp`, `rw`)  
-- Type refinement and optimization proofs
-
----
-
-## 🧾 References
-
-- Winskel, *The Formal Semantics of Programming Languages*  
-- Harper, *Practical Foundations for Programming Languages*  
-- Chomsky, *Aspects of the Theory of Syntax*  
-- Lean Prover Documentation (https://leanprover.github.io/)
+- Multi-language frontends (C-style, Pythonic pseudocode)  see AST folder
+- Compiler tools 
 
 ---
 
@@ -306,7 +238,7 @@ We're actively looking for contributors and/or core developers to get this idea 
 
 ## Multi-paradigm programming 
 
-A universal pseudocode compiler enables **adaptive multi-paradigm programming**, dynamically switching computation styles (e.g., imperative to functional, or even supporting other paradigms that have yet to emerge) mid-algorithm based on runtime conditions—impossible in rigid languages like Python or Haskell. For example, `SORT array IMPERATIVELY then MAP functionally` mutates small data like C++ before scaling to parallel map/reduce like Lisp; or, if we imagine something that may not be practical today but will be in the future for example,`SEARCH database QUANTUM else BRUTE_FORCE classically` leverages superposition with classical fallback. This kind of mixed-paradigm approach would be extremely difficult in classical languages. This abstracts "how" to compute via universal grammar, overcoming paradigm lock-in and enabling self-optimizing algorithms.
+A universal pseudocode compiler enables **multi-paradigm programming**, dynamically switching computation styles (e.g., imperative to functional, or even supporting other paradigms that have yet to emerge) mid-algorithm based on runtime conditions—impossible in rigid languages like Python or Haskell. For an extreme example to illustrate the point consider this pseudocode `SORT array IMPERATIVELY then MAP functionally` mutates small data like C++ before scaling to parallel map/reduce like Lisp; or, if we imagine something that may not be practical today but will be in the future for example,`SEARCH database QUANTUM else BRUTE_FORCE chas a  classical fallback. The compiler may support paradigms that have not yet been invented or implemented. 
 
 ## 🤔 FAQ
 
