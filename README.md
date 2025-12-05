@@ -10,10 +10,9 @@
 
 # PseudoC - Practical Pseudocode Compiler in Lean 4
 
-## 🎓 Autoformalization Bootstrap** (Coming Soon)
+## 🎓 Autoformalization Bootstrap** (Boostrap.lean)
 
-**`Bootstrap.ipynb`** will demonstrate autoformalization of `Main.pseudo` → Lean 4 using Process-Supervised Verification (PSV): Claude generates candidates, Lean 4 compiler errors guide refinement, final verified compiler self-hosts (`lake exe AutoPseudoC test.pseudo` produces identical output). Proves `⟦Autoformalized⟧ ≡ ⟦Original⟧` with notebook walkthrough. [web:31]
-
+**`Bootstrap.lean`** will demonstrate autoformalization of `Main.lean` → Lean 4 using Process-Supervised Verification (PSV): Claude generates candidates, Lean 4 compiler errors guide refinement, final verified compiler self-hosts (`lake exe AutoPseudoC test.pseudo` produces identical output). Proves `⟦Autoformalized⟧ ≡ ⟦Original⟧` with notebook walkthrough. [web:31]
 ---
 
 ## Overview
