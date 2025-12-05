@@ -22,7 +22,7 @@ The inspiration for this project is to answer a couple questions
 
 1. Is it possible to use pseudo code to teach algorithms and CS to students and have a tool that will generate executable multi-paradigm code?
 2. Is it theoretically possible to boostrap a pseudocode compiler IN psueodcode?
-3. Once the pseudocode compiler is built, is it possible to use it to answer reesearch questions aroun grammar agnostic termination?
+3. Once the pseudocode compiler is built, is it possible to use it to answer reesearch questions around language-agnostic tools?
 4. Is it possible to completely remove hallucinations from AI-generated code by treating it as pseudocode?
 
 ## 🎓 Autoformalization Bootstrap** (Boostrap.lean)
@@ -253,33 +253,9 @@ Expected: Prints countdown 5 → 1 and outputs generated Lean 4 code equivalent 
 
 ---
 
-## Multi-paradigm programming
+## Multi-paradigm programming 
 
 A universal pseudocode compiler enables **adaptive multi-paradigm programming**, dynamically switching computation styles (e.g., imperative to functional, or even supporting other paradigms that have yet to emerge) mid-algorithm based on runtime conditions—impossible in rigid languages like Python or Haskell. For example, `SORT array IMPERATIVELY then MAP functionally` mutates small data like C++ before scaling to parallel map/reduce like Lisp; or, if we imagine something that may not be practical today but will be in the future for example,`SEARCH database QUANTUM else BRUTE_FORCE classically` leverages superposition with classical fallback. This kind of mixed-paradigm approach would be extremely difficult in classical languages. This abstracts "how" to compute via universal grammar, overcoming paradigm lock-in and enabling self-optimizing algorithms across von Neumann, dataflow, logical, and hybrid AI models.
-
-
----
-
-
-## 🧠 Grammar-Agnostic Termination (Core justification for pseudoC)
-
-**What it means**: Prove evaluation halts for *any* valid pseudocode regardless of surface syntax (C-style, Pythonic, ad-hoc), by normalizing to UniversalIR first.
-
-**Why a pseudocode compiler?**:
-- Traditional compilers are brittle, tied to fixed context-free grammars (CFGs): `stmt ::= while '(' expr ')' stmt` 
-- UniversalIR decouples syntax variability → proves termination over semantic structure alone
-- **Chomsky Hierarchy Integration**: Encodes Type-1/2 grammars into dependent types, proving PTIME termination for practical pseudocode subsets 
-
-**Halting Problem Connection**: 
-- Skirts undecidability via *verifiably terminating subsets* (well-founded recursion, explicit decrements like `while x > 0`)
-- Theorem target: `∀ grammar, wellformed(pseudo) → terminates(eval(IR(pseudo)))` 
-
-## 🔬 Research Acceleration
-
-| Goal | UniversalIR Breakthrough |
-|------|-------------------------|
-| **Termination Proofs** | Grammar-agnostic halting for Chomsky Type-1/2 → beyond CompCertOC |
-| **Complexity Theory** | Rank pseudocode decidability classes (PTIME/EXPTIME) via IR ranking  |
 
 
 ## 🧮 License
