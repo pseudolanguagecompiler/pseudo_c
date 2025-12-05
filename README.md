@@ -91,7 +91,7 @@ theorem seq_compositional :
 ⟦S₁ ; S₂⟧ = ⟦S₁⟧ ∘ ⟦S₂⟧
 
 
-This expresses **compositional semantics** — complex statements are mathematically reducible to smaller sub-statements.
+This expresses **compositional semantics** — complex statements are mathematically reducible to smaller sub-statements enabling evaluation to an UniversalIR that dispatches to an intermediate IR where the denotational semantics with provable properties.
 
 ---
 
